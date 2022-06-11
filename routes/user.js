@@ -4,6 +4,7 @@ const UserController = require("../controllers/user")
 const auth = require("../middleware/auth")
 
 router.get("/", auth, UserController.getAll)
+router.get("/length", auth, UserController.getUserLength)
 router.get("/profile", auth, UserController.getMe)
 router.get("/profile/logout", auth, UserController.logout)
 router.get("/:userId", auth, UserController.getById)

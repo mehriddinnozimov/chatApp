@@ -4,8 +4,17 @@ const fs = require("fs")
 const knex = require("../db/knex")
 
 module.exports.getAll = async (req, res) => {
-	const users = await knex.select().from('users')
-	res.json(users)
+	const page = req.query.page || 1
+	const users = await knex.select().from('users').paginate({
+		perPage: 10,
+		currentPage: page
+	})
+	return res.json({success: true, users: users.data})
+}
+
+module.exports.getUserLength = async (req, res) => {
+	const users = await knex.select().from("users")
+	return res.json({ success: true, length: users.length })
 }
 
 module.exports.getById = async (req, res) => {
@@ -80,11 +89,12 @@ module.exports.upload = multer({
 
 module.exports.uploadImage = async (req, res, next) => {
 	try {
+		console.log(req)
 		if(!req.file) throw "File not found"
 		await fs.readFile(req.file.path, async (err, data) => {
 			if(err) next("Something wrong", null);
 			let buffer = Buffer.from(data)
-			buffer = await sharp(buffer).resize({width:64, height:64}).png().toBuffer()
+			buffer = await sharp(buffer).resize({width:128, height:128}).png().toBuffer()
 			await fs.writeFile(req.file.path, buffer, (err) => {
 				if(err) next("Something wrong", null)
 			})

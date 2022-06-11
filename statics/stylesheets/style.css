@@ -1,148 +1,70 @@
-body {
-  background-color: #EDEDE9;
+.hr {
+  border-bottom: 2px solid #0d6efd;
+  height: 0.5rem;
 }
 
-.navbar-border {
-  border-bottom: 3px solid #3E92CC;
+#alert-box {
+  position: fixed;
+  z-index: 1;
+  padding: 20px 0px;
+  margin-right: auto;
+  margin-left: auto;
+  height: 100%;
+  right: 130px;
 }
 
-.color-white {
-  color: #FFFAFF;
-}
-
-.color-pink {
-  color: #D8315B;
-}
-
-.color-blue {
-  color: #0A2463;
-}
-
-.color-sky {
-  color: #3E92CC;
-}
-
-.color-black {
-  color: #1E1B18;
-}
-
-.color-violent {
-  color: #6F2DBD;
-}
-
-.bg-blue {
-  background-color: #0A2463;
-}
-
-.bg-sky {
-  background-color: #3E92CC;
-}
-
-.bg-white {
-  background-color: #FFFAFF;
-}
-
-.bg-violent {
-  background-color: #6F2DBD;
-}
-
-.font-josefin {
-  font-family: 'Josefin Sans', sans-serif;
-}
-
-.font-dosis {
-  font-family: 'Dosis', sans-serif;
-}
-
-
-#google-btn {
-  display: inline-block;
-  border-radius: 5px;
-  border: thin solid #888;
-  box-shadow: 1px 1px 1px grey;
-  white-space: nowrap;
-    }
-#google-btn:hover {
-  cursor: pointer;
-    }
-span.google-label {
-  font-family: serif;
-  font-weight: normal;
-    }
-span.google-icon {
-  background: url('/icons/g-normal.png') transparent 1px 50% no-repeat;
-  display: inline-block;
-  vertical-align: middle;
-  width: 42px;
-  height: 42px;
-    }
-span.google-button-text {
-  display: inline-block;
-  vertical-align: middle;
-  padding-left: 42px;
-  padding-right: 42px;
-  font-size: 14px;
-  font-weight: bold;
-  /* Use the Roboto font that is loaded in the <head> */
-  font-family: 'Roboto', sans-serif;
-}
-
-
-/* Style the tab */
-.tab {
-  background-color: #6F2DBD;
-  border: 2px solid #6F2DBD;
-}
-
-.px-22 {
-  padding: 0 16px;
-}
-/* Style the buttons inside the tab */
-.tab button {
-  display: block;
-  background-color: inherit;
-  padding: 16px 16px;
-  width: 100%;
-  border: none;
-  outline: none;
-  text-align: left;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 17px;
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-  color: #FFFAFF;
-}
-
-/* Create an active/current "tab button" class */
-.tab button.active {
-  background-color: #FFFAFF;
-  color: #6F2DBD;
-}
-
-/* Style the tab content */
-.tabcontent {
-  float: left;
-  padding: 0px 12px;
-  border: 1px solid #ccc;
-  border-left: none;
-}
-
-.tab-nav-border {
-  border-bottom: 2px solid #FFFAFF;
-}
-
-#profile-picture {
-  height: 200px;
+.alert {
   width: 100%;
 }
 
-.dot {
-  height: 10px;
-  width: 10px;
-  background-color: #0A2463;
-  border-radius: 50%;
-  display: inline-block;
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #BA68C8
+}
+
+.profile-button {
+    background: rgb(99, 39, 120);
+    box-shadow: none;
+    border: none
+}
+
+.profile-button:hover {
+    background: #682773
+}
+
+.profile-button:focus {
+    background: #682773;
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: #682773;
+    box-shadow: none
+}
+
+.back:hover {
+    color: #682773;
+    cursor: pointer
+}
+
+.labels {
+    font-size: 11px
+}
+
+.add-experience:hover {
+    background: #BA68C8;
+    color: #fff;
+    cursor: pointer;
+    border: solid 1px #BA68C8
+}
+
+#prev {
+  position: fixed;
+  left: 0!important;
+}
+
+#next {
+  position: fixed;
+  right: 0!important;
 }

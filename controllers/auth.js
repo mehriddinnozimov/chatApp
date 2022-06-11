@@ -11,7 +11,8 @@ module.exports.getGoogleCallBack = passport.authenticate("google", {
 })
 
 module.exports.failure = (req, res) => {
-	return res.json({ success: false, error: "failure log in" })
+	// return res.json({ success: false, error: "failure log in" })
+	return res.redirect("/")
 }
 
 module.exports.success = async (req, res) => {

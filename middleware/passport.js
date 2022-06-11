@@ -13,7 +13,7 @@ passport.use(new Strategy({
 		const users = await knex('users').insert({
 			email: profile._json.email,
 			name: profile._json.name,
-			picture_url: profile._json.picture,
+			picture_url: "/pictures/default-user.png",
 			list_users: []
 
 		})

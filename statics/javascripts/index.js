@@ -1,119 +1,99 @@
 const for_user = document.getElementsByClassName("for-user")
 const for_nobody = document.getElementsByClassName("for-nobody")
-const alert = document.getElementById("alert")
-const tablinks = document.getElementsByClassName("tablinks")
 const main = document.getElementById("main")
 
-const profile = document.getElementById("profile")
-const chats = document.getElementById("chats")
-const users = document.getElementById("users")
 const logout = document.getElementById("logout")
+const nav_ul = document.getElementById("nav-ul")
 
-const profile_edit = document.getElementById("profile-edit")
+const profile = document.getElementById("profile")
+const users = document.getElementById("users")
+const chats = document.getElementById("chats")
+
+const main_users = document.getElementById("main-users")
+const main_chats = document.getElementById("main-chats")
+const main_profile = document.getElementById("main-profile")
+
+const main_users_row = document.getElementById("main-users-row")
+
+const name_view = document.getElementById("name-view")
+const picture_view = document.getElementById("picture-view")
+const bio_view = document.getElementById("bio-view")
+const email_view = document.getElementById("email-view")
+
 const name = document.getElementById("name")
-const email = document.getElementById("email")
-const picture_url = document.getElementById("picture_url")
 const bio = document.getElementById("bio")
+const file = document.getElementById("file")
+const save = document.getElementById("save")
 
-const profile_picture = document.getElementById("profile-picture")
+const prev = document.getElementById("prev")
+const next = document.getElementById("next")
 
-const postData = async (uri, body) => {
-	const response = await fetch(uri, {
-		method: "post",
-		headers: {
-	      'Content-Type': 'application/json'
-	    },
-	    body: JSON.stringify(body)
-	})
-	return response.json()
-}
+const user_name = document.getElementsByClassName("user-name")
 
-const getData = async (uri) => {
-	const response = await fetch(uri, {
-		method: "get"
-	})
-	return response.json()
-}
-
-const uri = "http://localhost:8000/"
-
-
+let page = 1
+let usersPageLength = 1
 
 async function loader(){
-	let profile = await getData(uri + "users/profile")
-	console.log(profile)
-	const message = {
-		color: "",
-		content: ""
-	}
-	if(profile.success) {
-		profile = profile.user
-		message.color = "alert-success"
-		message.content = "Tizimga muvaffaqiyatli kirdingiz!"
-		for(let i=0; i < for_user.length; i++){
-			for_user[i].style.display = "block"
-		}
-		for(let i=0; i < for_nobody.length; i++){
-			for_nobody[i].style.display = "none"
-		}
+	const res = await getData(url+"users/profile")
+	console.log(res)
+	if(res.success) {
+		const profile = res.user
+		alert("success", "Tizimga xush kelibsiz, " + profile.name)
+		setStyleGroups(for_user, "display", "block")
+		setStyleGroups(for_nobody, "display", "none")
 
-		profile_picture.setAttribute("src", profile.picture_url)
+		main_users.style.display = "none"
+		main_chats.style.display = "none"
 
-		for(let i = 0; i < tablinks.length; i++){
-			tablinks[i].addEventListener("click", (e) => {
-				for(let i  = 0; i < tablinks.length; i++) {
-					tablinks[i].classList.remove("color-white")
-					tablinks[i].classList.remove("active")
-				}
+		loadProfile(res.user)
 
-				e.target.classList.add("color-white")
-				e.target.classList.add("active")
-
-				const mainChild = document.getElementById("for-"+e.target.id)
-				console.log(mainChild)
-				for(let i = 0; i < main.children.length;i++){
-					main.children[i].classList.remove("d-none")
-					main.children[i].style.display = "none"
-				}
-				mainChild.style.display = "block"
-			})
-		}
-
-		name.value = profile.name
-		email.value = profile.email
-		bio.value = profile.bio
-		let disabled = true
-		profile_edit.addEventListener("click", () => {
-			disabled = !disabled
-			name.disabled = disabled
-			bio.disabled = disabled
-			picture_url.disabled = disabled
-		})
 	} else {
-		message.color = "alert-danger"
-		message.content = profile.err
-		for(let i=0; i < for_user.length; i++){
-			for_user[i].style.display = "none"
-		}
-		for(let i=0; i < for_nobody.length; i++){
-			for_nobody[i].style.display = "block"
-		}
+		alert("danger", res.err)
+		setStyleGroups(for_user, "display", "none")
+		setStyleGroups(for_nobody, "display", "block")
 	}
-
-	alert.classList.add(message.color)
-	alert.innerText = message.content
-
-	setTimeout(() => {
-		alert.style.visibility = "hidden"
-	}, 3000)
-
-	logout.addEventListener("click", async () => {
-		let response = await getData(uri+"users/profile/logout")
-		console.log(response)
-		if(response.success) location.reload();
-	})
 }
 
-
-
 loader()
+
+function loadProfile(profile){
+	name_view.innerText = profile.name
+	picture_view.setAttribute("src", profile.picture_url)
+	bio_view.innerText = profile.bio
+	email_view.innerText = profile.email
+
+	name.value = profile.name
+	bio.value = profile.bio
+}
+
+function loadUsers(users){
+	let col = ""
+	if(users.length < 10) col = "-2"
+	const usersList = []
+	for(let i = 0; i < users.length; i++) {
+		const user = users[i]
+		const userDiv = `
+			<div class="col${col} mb-2">
+				<div class="card p-1" style="width: 10rem;">
+					<img src="${user.picture_url}" class="card-img-top" alt="Foydalanuvchining rasmi">
+					<div class="card-body">
+	        			<a class="card-title h6 user-name link-primary" href="#users#${user.id}" id="n-${user.id}">${user.name}</a>
+	        			<p class="card-text">${user.bio}</p>
+	        		</div>
+	    		</div>
+	    	</div>
+    	`
+    	usersList.push(userDiv)
+	}
+	main_users_row.innerHTML = usersList.join("\n")
+}
+
+function prevPage(){
+	page--
+	if(page < 1) page = 1
+}
+
+function nextPage(){
+	page++
+	if(page > usersPageLength) page = usersPageLength
+}
