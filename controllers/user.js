@@ -21,7 +21,7 @@ module.exports.getById = async (req, res) => {
 	try {
 		const user = await knex.select().from('users').where({id: req.params.userId}).first()
 		if(!user) throw "User not found"
-		return res.json(user)
+		return res.json({success: true, user})
 	} catch (err) {
 		return res.json({ success: false, err })
 	}

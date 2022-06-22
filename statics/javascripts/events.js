@@ -34,7 +34,6 @@ prev.addEventListener("click", async () => {
 
 next.addEventListener("click", async () => {
 	nextPage()
-	console.log(page)
 	const res = await getData("users?page="+page)
 	if(res.success){
 		loadUsers(res.users)
@@ -43,13 +42,16 @@ next.addEventListener("click", async () => {
 	}
 })
 
+chats.addEventListener("click", async () => {
+	loadChats()
+})
+
 save.addEventListener("click", async () => {
 	const data = {
 		name: name.value,
 		bio: bio.value,
 	}
 	const res = await putData(url+"users/profile", data)
-	console.log(res)
 	res.success ? alert("success", "Muvaffaqiyatli o`zgartirildi") : alert("danger", res.err)
 	if(file.value && file.value.length > 0) {
 		const resPicture = await uploadFile(url+"users/profile/picture", "picture", file.files[0])
@@ -63,10 +65,30 @@ save.addEventListener("click", async () => {
 	}
 })
 
-forEachForClass(user_name, (el) => {
-	console.log(el)
-	el.addEventListener("click", (e) => {
-		const id = e.target.id.split("-")[1]
-		console.log(id)
-	})
+send_message_button.addEventListener("click", async () => {
+	const id = message_for_id.innerHTML
+	let messageRes = {}
+	if(message_file.value){
+		const uri = url + "messages/files/" + id 
+		messageRes = await uploadFile(uri, "file", message_file.files[0], {
+			content: message_content.value
+		})
+	} else {
+		const uri = url + "messages/" + id
+		messageRes = await postData(uri, {
+			content: message_content.value
+		})
+	}
+	if(messageRes.success){
+		loadChats()
+		loadMessages(id)
+	} else {
+		alert("danger", messageRes.err)
+	}
+
 })
+
+remove_file.addEventListener("click", () => {
+	message_file.value = ""
+})
+

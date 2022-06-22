@@ -18,10 +18,7 @@ function setStyleGroups(list, type, value){
 }
 
 function forEachForClass(className, func){
-	console.log(className)
 	for(let i= 0; i < className.length; i++){
-		console.log(i)
-		console.log(className[i])
 		func(className[i])
 	}
 }
@@ -55,9 +52,15 @@ const getData = async (uri) => {
 	return response.json()
 }
 
-const uploadFile = async (uri, name, file) => {
+const uploadFile = async (uri, name, file, body) => {
 	const formData = new FormData()
   	formData.append(name, file)
+  	if(body){
+  		keys = Object.keys(body)
+  		keys.forEach(key => {
+  			formData.append(key, body[key])
+  		})
+  	}
 	const response = await fetch(uri, {
 		method: "post",
 		body: formData

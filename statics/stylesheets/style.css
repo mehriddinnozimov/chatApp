@@ -17,7 +17,6 @@
   width: 100%;
 }
 
-
 .form-control:focus {
     box-shadow: none;
     border-color: #BA68C8
@@ -67,4 +66,17 @@
 #next {
   position: fixed;
   right: 0!important;
+}
+
+.h-60 {
+    height: 60%!important;
+}
+
+.h-40 {
+    height: 40%!important;
+}
+
+#file {
+    display: inline-block!important;
+    width: 50%!important;
 }

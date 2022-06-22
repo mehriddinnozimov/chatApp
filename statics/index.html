@@ -113,7 +113,44 @@
             </div>
           </div>
           <div id="main-chats">
-            
+            <div>
+              <div class="container py-5">
+                <div class="row">
+                  <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0">
+                    <h5 class="font-weight-bold mb-3 text-center text-lg-start">Foydalanuvchilar</h5>
+                    <div class="card">
+                      <div class="card-body">
+                        <ul class="list-unstyled mb-0" id="my-members">
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-7 col-xl-8">
+                    <div>
+                      <h6 id="message-for-name"></h6>
+                      <p id=message-for-bio></p>
+                      <p id="message-for-id" class="d-none"></p>
+                    </div>
+                    <ul class="list-unstyled overflow-auto" id="my-members-chat">
+                    </ul>
+                    <div style="display:none;" id="send-div">
+                      <div class="bg-white mb-3">
+                        <div class="form-outline">
+                          <textarea class="form-control" rows="1" id="message-content"></textarea>
+                          <div class="mt-2">
+                            <input  type="file" class="form-control" name="file" value="Fayl yuborish" id="message-file" />
+                            <div class="mt-2">
+                              <button type="button" class="btn btn-outline-danger float-start" id="remove-file">Remove File</button>
+                              <button type="button" class="btn btn-info btn-rounded float-end" id="send-message">Send</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div id="main-users" class="container rounded bg-light py-2">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
